@@ -1,0 +1,54 @@
+// .container{
+//     width: 95%;
+//     height: 100%;
+//     margin: 0 auto;
+// }
+
+// .users{
+//     width: 40%;
+//     height: 100%;
+//     &__list{
+//         width: 100%;
+//     }
+//     &__item{
+//         padding: 10px;
+//         border: 1px solid #aeaeae;
+//         &:hover{
+//             cursor: pointer;
+//             background-color: #aaaaaa;
+//         }
+//     }
+// }
+
+// .chat{
+//     width: 60%;
+//     height: 100%;
+//     box-sizing: border-box;
+//     padding: 0 10px;
+//     display: flex;
+//     flex-direction: column;
+//     &__messages{
+//         flex-grow: 1;
+//     }
+//     &__input{
+//         form{
+//             display: flex;
+//             input[type="text"]{
+//                 width: 100%;                
+//             }
+//             button{
+//                 background-color: transparent;
+//                 border: none;
+//             }
+//         }
+//     }
+// }
+
+// .messages{
+//     &__list{
+
+//     }
+//     &__item{
+
+//     }
+// }
