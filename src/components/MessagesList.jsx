@@ -4,15 +4,15 @@ import '../scss/chatpage.css'
 
 export default function MessagesList({activeChatRef, messagesArray}) {
   return (
-    <List className='messages__list' >
+    <List >
         {
             activeChatRef.current == null ? (
-                <ListItem className='messages__item'>Выберите чат</ListItem>
+                <ListItem >Выберите чат</ListItem>
             ) : (
                 messagesArray.length == 0 ? 
-                <ListItem className='messages__item'>Сообщений пока нет...</ListItem> : (
+                <ListItem >Сообщений пока нет...</ListItem> : (
                     messagesArray.map((message, index) => (
-                        <ListItem className='messages__item' key={index}>
+                        <ListItem  key={index}>
                             <Typography sx={{fontWeight: 700, pr: '10px', wordBreak: 'keep-all'}}>
                                 {message.login}:
                             </Typography>

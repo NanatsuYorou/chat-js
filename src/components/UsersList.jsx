@@ -37,7 +37,7 @@ function UserItem({id, login, selectChat, toggleDrawer}){
     }
     
     return(
-        <ListItem className='users__item' onClick={handleClick} >
+        <ListItem  onClick={handleClick} >
                {login}
         </ListItem>
     )
@@ -45,8 +45,8 @@ function UserItem({id, login, selectChat, toggleDrawer}){
 
 export default function UsersList({users, selectChat, toggleDrawer}) {
   return (
-    <List sx={{width: {xs: '320px', sm: '350px', md: '400px', lg: '400px'}}} className='users__list'>
-        <ListItem className='users__item' onClick={() => {selectChat(1); toggleDrawer(false)}}>
+    <List sx={{width: {xs: '320px', sm: '350px', md: '400px', lg: '400px'}}} >
+        <ListItem  onClick={() => {selectChat(1); toggleDrawer(false)}}>
                 Общий чат
         </ListItem>
         {

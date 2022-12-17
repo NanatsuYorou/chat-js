@@ -177,19 +177,19 @@ export default function ChatPage() {
             </Toolbar>
         </AppBar>
         <Container className="container" sx={{height: '90%'}}>
-            <Drawer anchor='left' variant='permanent' sx={{display: {xs: 'none', sm: 'none', md: 'block', lg: 'block'}}} open={open}  onClose={() => toggleDrawer(false)} className='users'>
+            <Drawer anchor='left' variant='permanent' sx={{display: {xs: 'none', sm: 'none', md: 'block', lg: 'block'}}} open={open}  onClose={() => toggleDrawer(false)}>
                 <Typography sx={{padding: '10px', backgroundColor: '#fff', height: '60px', boxSizing: 'border-box'}} component={'h3'} variant={'span'}>
                     Список пользователей
                 </Typography>
                 <UsersList users={users} selectChat={selectChat} toggleDrawer={toggleDrawer}/>
             </Drawer>
-            <Drawer anchor='left' variant='temporary' sx={{display: {md: 'none', lg: 'none'}}} open={open}  onClose={() => toggleDrawer(false)} className='users'>
+            <Drawer anchor='left' variant='temporary' sx={{display: {md: 'none', lg: 'none'}}} open={open}  onClose={() => toggleDrawer(false)} >
                 <Typography sx={{padding: '10px'}} component={'h3'} variant={'span'}>
                     Чаты
                 </Typography>
                 <UsersList users={users} selectChat={selectChat} toggleDrawer={toggleDrawer}/>
             </Drawer>
-            <Box onClick={() => toggleDrawer(false)} className='chat' sx={{display: 'flex', flexDirection: 'column', height: '100%', ml: {md: '400px'}}}>
+            <Box onClick={() => toggleDrawer(false)} sx={{display: 'flex', flexDirection: 'column', height: '100%', ml: {md: '400px'}}}>
                 <Box sx={{flexGrow: 1, paddingTop: '10px', overflow: 'auto'}} className="chat__messages" >
                     <MessagesList activeChatRef={activeChatRef} messagesArray={messagesArray}/>
                 </Box>
