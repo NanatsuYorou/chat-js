@@ -1,3 +1,5 @@
+import { Button, TextField } from '@mui/material'
+import { Box, Container } from '@mui/system'
 import React, { useEffect, useState } from 'react'
 import CSS from '../scss/authpage.css'
 
@@ -7,22 +9,25 @@ export default function AuthPage() {
     const [users, setUsers] = useState([])
     const [errorMessage, setErrorMessage] = useState('')
     
-    function handleLogin(e){
-        e.preventDefault()
-
-        let error = false
+    function handleLogin(){
+        
+        if(login.trim() == ''){
+            console.log(login)
+            setErrorMessage('Некорректный логин')
+            setLogin('')
+            return
+        }
 
         for(let i = 0; i < users.length; i++){
             if(users[i].login === login){
-                error = true
                 setErrorMessage('Данный логин уже занят')
                 setLogin('')
-                break;
+                return;
             }
         }
 
         
-        if(!error){
+        if(errorMessage === ''){
             let curr_user = {
                 id: new Date().getTime(),
                 login
@@ -52,7 +57,7 @@ export default function AuthPage() {
     }
 
     useEffect(() => {
-        initUsers()        
+        initUsers()
     }, [])
 
     function initUsers(){
@@ -62,16 +67,21 @@ export default function AuthPage() {
         }
         setUsers(users_array)
     }
+
+    function handleEnterPressed(event){
+        if(event.keyCode == 13){
+            handleLogin()
+        }
+    }
     
     window.addEventListener('storage', initUsers)
     
   return (
-    <div className={CSS['container']} >
-        <form onSubmit={e => handleLogin(e)}>
-            <input type="text" onChange={e => setLogin(e.target.value)}/>
-            <button type="submit">Login</button>
-            <span>{errorMessage}</span>
-        </form>
-    </div>
+    <Box sx={{display: 'flex', alignItems: 'center', height: '100%'}}>
+        <Container sx={{display: 'flex', flexDirection: 'column', width: {xs: '300px', sm: '400px', md: '500px'}}}>
+                <TextField id='login' value={login} error={errorMessage !== ''} helperText={errorMessage} onChange={e => setLogin(e.target.value)} placeholder={'Введите логин...'} onKeyDown={event => handleEnterPressed(event)}></TextField>
+                <Button variant="standart" onClick={handleLogin}>Войти</Button>
+        </Container>
+    </Box>
   )
 }

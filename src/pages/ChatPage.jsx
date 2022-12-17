@@ -53,8 +53,7 @@ export default function ChatPage() {
     }
 
     // Функция отправки сообщения
-    function handleSendMessage(e){
-        e.preventDefault()
+    function handleSendMessage(){
 
         let messageSended = false
         if(activeChatRef.current == null){
@@ -95,6 +94,14 @@ export default function ChatPage() {
             loadMessages()
         }
     }
+
+    function handleEnterPressed(event){
+        if(event.keyCode == 13){
+            handleSendMessage(event)
+            setMessage('')
+        }
+    }
+    
     // Один из пользователей вышел 
     // или пришло сообщение - обновить компоненты
     function reloadComponent(){
@@ -159,9 +166,9 @@ export default function ChatPage() {
     
   return (
     <Box sx={{height: '100%'}}>
-        <AppBar position='static' sx={{height: {xs: '10%', sm: '50px', md: '60px'}}}>
-            <Toolbar sx={{height: '100%', minHeight: '0px'}}>
-                <IconButton onClick={() => toggleDrawer(true)}>
+        <AppBar position='static' sx={{height: '60px'}}>
+            <Toolbar sx={{height: '100%', minHeight: '60px', ml: {md: '400px'}}}>
+                <IconButton sx={{display: {md: 'none', lg: 'none'}}} onClick={() => toggleDrawer(true)}>
                     <ArrowBackIcon/>
                 </IconButton>
                 <Typography>
@@ -170,23 +177,27 @@ export default function ChatPage() {
             </Toolbar>
         </AppBar>
         <Container className="container" sx={{height: '90%'}}>
-            <Drawer anchor='left' open={open}  onClose={() => toggleDrawer(false)} className='users'>
-                <Typography sx={{padding: '10px'}} component={'h3'} variant={'span'}>
+            <Drawer anchor='left' variant='permanent' sx={{display: {xs: 'none', sm: 'none', md: 'block', lg: 'block'}}} open={open}  onClose={() => toggleDrawer(false)} className='users'>
+                <Typography sx={{padding: '10px', backgroundColor: '#fff', height: '60px', boxSizing: 'border-box'}} component={'h3'} variant={'span'}>
                     Список пользователей
                 </Typography>
                 <UsersList users={users} selectChat={selectChat} toggleDrawer={toggleDrawer}/>
             </Drawer>
-            <Box onClick={() => toggleDrawer(false)} className='chat' sx={{display: 'flex', flexDirection: 'column', height: '100%'}}>
+            <Drawer anchor='left' variant='temporary' sx={{display: {md: 'none', lg: 'none'}}} open={open}  onClose={() => toggleDrawer(false)} className='users'>
+                <Typography sx={{padding: '10px'}} component={'h3'} variant={'span'}>
+                    Чаты
+                </Typography>
+                <UsersList users={users} selectChat={selectChat} toggleDrawer={toggleDrawer}/>
+            </Drawer>
+            <Box onClick={() => toggleDrawer(false)} className='chat' sx={{display: 'flex', flexDirection: 'column', height: '100%', ml: {md: '400px'}}}>
                 <Box sx={{flexGrow: 1, paddingTop: '10px', overflow: 'auto'}} className="chat__messages" >
                     <MessagesList activeChatRef={activeChatRef} messagesArray={messagesArray}/>
                 </Box>
-                <Box className="chat__input">
-                    <form onSubmit={e => handleSendMessage(e)}>
-                        <TextField sx={{width: '85%'}} placeholder="Введите ваше сообщение..." value={message} onChange={e => setMessage(e.target.value)} />
-                        <IconButton sx={{width: '15%'}} onClick={e => handleSendMessage(e)}>
-                            <SendIcon/>
-                        </IconButton>
-                    </form>
+                <Box className="chat__input" sx={{display: 'flex', alignItems: 'center'}}>
+                    <TextField sx={{width: '90%'}} onKeyDown={event => handleEnterPressed(event)} placeholder="Введите ваше сообщение..." value={message} onChange={e => setMessage(e.target.value)} />
+                    <IconButton sx={{width: '10%', borderRadius: 0}} onClick={handleSendMessage}>
+                        <SendIcon/>
+                    </IconButton>
                 </Box>
             </Box>
         </Container>
